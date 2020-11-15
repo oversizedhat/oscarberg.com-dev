@@ -3,6 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://oversizedhat.github.io/oscarberg.com-dev/blog/</loc>
+    <lastmod>2020-11-10T14:39:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oversizedhat.github.io/oscarberg.com-dev/tags/hugo/</loc>
+    <lastmod>2020-11-10T14:39:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oversizedhat.github.io/oscarberg.com-dev/</loc>
+    <lastmod>2020-11-10T14:39:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oversizedhat.github.io/oscarberg.com-dev/tags/static-site-generator/</loc>
+    <lastmod>2020-11-10T14:39:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oversizedhat.github.io/oscarberg.com-dev/blog/hugo/</loc>
+    <lastmod>2020-11-10T14:39:18+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oversizedhat.github.io/oscarberg.com-dev/tags/</loc>
+    <lastmod>2020-11-10T14:39:18+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://oversizedhat.github.io/oscarberg.com-dev/about/</loc>
     <lastmod>2020-11-09T14:39:18+00:00</lastmod>
   </url>
@@ -13,47 +43,12 @@
   </url>
   
   <url>
-    <loc>https://oversizedhat.github.io/oscarberg.com-dev/blog/</loc>
+    <loc>https://oversizedhat.github.io/oscarberg.com-dev/tags/jekyll/</loc>
     <lastmod>2020-11-09T14:39:18+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://oversizedhat.github.io/oscarberg.com-dev/blog/post3/</loc>
-    <lastmod>2020-11-09T14:39:18+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oversizedhat.github.io/oscarberg.com-dev/blog/post1/</loc>
-    <lastmod>2020-11-09T14:39:18+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oversizedhat.github.io/oscarberg.com-dev/tags/food/</loc>
-    <lastmod>2020-11-09T14:39:18+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oversizedhat.github.io/oscarberg.com-dev/tags/grafana/</loc>
-    <lastmod>2020-11-09T14:39:18+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oversizedhat.github.io/oscarberg.com-dev/tags/hamster/</loc>
-    <lastmod>2020-11-09T14:39:18+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oversizedhat.github.io/oscarberg.com-dev/</loc>
-    <lastmod>2020-11-09T14:39:18+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oversizedhat.github.io/oscarberg.com-dev/blog/post2/</loc>
-    <lastmod>2020-11-09T14:39:18+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oversizedhat.github.io/oscarberg.com-dev/tags/</loc>
+    <loc>https://oversizedhat.github.io/oscarberg.com-dev/blog/jekyll/</loc>
     <lastmod>2020-11-09T14:39:18+00:00</lastmod>
   </url>
   

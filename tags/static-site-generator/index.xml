@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog on Oscar Wendelin Berg</title>
-    <link>https://oversizedhat.github.io/oscarberg.com-dev/blog/</link>
-    <description>Recent content in Blog on Oscar Wendelin Berg</description>
+    <title>static site generator on Oscar Wendelin Berg</title>
+    <link>https://oversizedhat.github.io/oscarberg.com-dev/tags/static-site-generator/</link>
+    <description>Recent content in static site generator on Oscar Wendelin Berg</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 Nov 2020 14:39:18 +0000</lastBuildDate><atom:link href="https://oversizedhat.github.io/oscarberg.com-dev/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Nov 2020 14:39:18 +0000</lastBuildDate><atom:link href="https://oversizedhat.github.io/oscarberg.com-dev/tags/static-site-generator/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Static site generators part 2 - Hugo</title>
       <link>https://oversizedhat.github.io/oscarberg.com-dev/blog/hugo/</link>

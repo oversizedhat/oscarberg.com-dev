@@ -6,7 +6,17 @@
     <description>Recent content on Oscar Wendelin Berg</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Nov 2020 14:39:18 +0000</lastBuildDate><atom:link href="https://oversizedhat.github.io/oscarberg.com-dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Nov 2020 14:39:18 +0000</lastBuildDate><atom:link href="https://oversizedhat.github.io/oscarberg.com-dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Static site generators part 2 - Hugo</title>
+      <link>https://oversizedhat.github.io/oscarberg.com-dev/blog/hugo/</link>
+      <pubDate>Tue, 10 Nov 2020 14:39:18 +0000</pubDate>
+      
+      <guid>https://oversizedhat.github.io/oscarberg.com-dev/blog/hugo/</guid>
+      <description>Compared to last post about Jekyll I wanted to take a static site a bit further and build my own personal website (this one) so the requirements I had where a bit more defined this time (well, in reality still just in my own head, but anyways). Hoping that I will actually spend some time on this website as well as ENJOY spending time on it.
+ Easy and fun to work with Responsible UI out of the box Site needs to look the way I want (without me having to put a lot of effort on it) Cheap or free Easy to extend in future Ideally something hip and popular, lets face it.</description>
+    </item>
+    
     <item>
       <title>About</title>
       <link>https://oversizedhat.github.io/oscarberg.com-dev/about/</link>
@@ -17,31 +27,13 @@
     </item>
     
     <item>
-      <title>Cooking</title>
-      <link>https://oversizedhat.github.io/oscarberg.com-dev/blog/post3/</link>
+      <title>Static site generators part 1 - Jekyll</title>
+      <link>https://oversizedhat.github.io/oscarberg.com-dev/blog/jekyll/</link>
       <pubDate>Mon, 09 Nov 2020 14:39:18 +0000</pubDate>
       
-      <guid>https://oversizedhat.github.io/oscarberg.com-dev/blog/post3/</guid>
-      <description>MMMmm doofd
- bagge  </description>
-    </item>
-    
-    <item>
-      <title>DIY Realtime hamster monitoring using Arduino and Grafana</title>
-      <link>https://oversizedhat.github.io/oscarberg.com-dev/blog/post1/</link>
-      <pubDate>Mon, 09 Nov 2020 14:39:18 +0000</pubDate>
-      
-      <guid>https://oversizedhat.github.io/oscarberg.com-dev/blog/post1/</guid>
-      <description>Poppe poppe</description>
-    </item>
-    
-    <item>
-      <title>Something</title>
-      <link>https://oversizedhat.github.io/oscarberg.com-dev/blog/post2/</link>
-      <pubDate>Mon, 09 Nov 2020 14:39:18 +0000</pubDate>
-      
-      <guid>https://oversizedhat.github.io/oscarberg.com-dev/blog/post2/</guid>
-      <description>Arudino</description>
+      <guid>https://oversizedhat.github.io/oscarberg.com-dev/blog/jekyll/</guid>
+      <description>Recently I did a low-tech hamstermonitoring setup with Arduino and Grafana. I decided the end result was fun enough to share, and did a blog post/webpage of it: https://oversizedhat.github.io/hamstermonitor
+Likely I spent as much time on the webpage as I did on the project itself so I thought why not go all the way and also write about the experience using Jekyll, which was my first time testing out a static site generator.</description>
     </item>
     
   </channel>
