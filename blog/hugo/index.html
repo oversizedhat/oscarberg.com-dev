@@ -1,131 +1,19 @@
-<!DOCTYPE html>
-<html><head>
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SKB7HW5GSZ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', "G-SKB7HW5GSZ");
-    </script>
-
-    <script async src="https://oversizedhat.github.io/oscarberg.com-dev/js/main.js"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="https://oversizedhat.github.io/oscarberg.com-dev/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://oversizedhat.github.io/oscarberg.com-dev/css/style.css">
-    
-    
-    <title>Oscar Wendelin Berg | Static site generators part 2 - Hugo</title>
-</head><body><div class="cookie-banner alert alert-info text-center mb-0" role="alert">
-    🍪 This site is making use of some basic analytics cookies so I can hopefully learn something from of the metrics. By using the site you are totally fine with that.
-    <button type="button" class="btn btn-primary btn-sm ml-3" onclick="window.cookieBanner_accept()">
-        Sure, thanks for letting me know
-    </button>
-</div>
-
-    <nav id="nav" class="navbar sticky-top shadow p-3 mb-5 bg-white">
-        <div class="container">
-
-            
-            <a class="btn btn-outline-primary" href="https://oversizedhat.github.io/oscarberg.com-dev" role="button">OWB</a>
-            
-            
-            <a class="nav-link" href="/oscarberg.com-dev/blog/">
-            
-                
-                <i data-feather="blog"></i> 
-            
-            
-            Blog
-            </a>
-            
-        </div>
-    </nav>
-<div id="content">
-<div class="container">
-     
-
-    <a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/arduino/ role="button">arduino <sup>1</sup></a>
-
- 
-
-    <a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/hugo/ role="button">hugo <sup>1</sup></a>
-
- 
-
-    <a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/jekyll/ role="button">jekyll <sup>1</sup></a>
-
- 
-
-    <a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/static-site-generator/ role="button">static-site-generator <sup>2</sup></a>
-
-
-<hr/>
-    <h4>Static site generators part 2 - Hugo</h4>
-    <p>Compared to last post about Jekyll I wanted to take a static site a bit further and build my own personal website (this one) so the requirements I had were a bit more defined this time (well, in reality still just in my own head, but anyways). Hoping that I will spend some time on this website as well as ENJOY spending time on it I wanted something:</p>
-<ul>
-<li>Easy <strong>and fun</strong> to work with</li>
-<li>Responsible UI out of the box</li>
-<li>Site needs to look the way I want (without me having to put a lot of effort on it)</li>
-<li>Cheap or free</li>
-<li>Easy to extend in future</li>
-<li>Ideally something hip and popular, lets face it. We all want to be hip, and work with new stuff</li>
-<li>Ideally new for me so I learn something</li>
-</ul>
-<p>Going back to <a href="https://jamstack.org/generators/">https://jamstack.org/generators/</a></p>
-<p>Looking at the top ones I think Next.js and Gatsby where the natural choices for me, with a decent amount of experience working with Nodejs, npm and React. Or maybe Nuxt or VuePress with Vue templates.</p>
-<p><strong>Gatsby:</strong> Just opening <a href="https://www.gatsbyjs.com/">https://www.gatsbyjs.com/</a> gave me the chills. With a landing page looking like a corporate website from the late 90s, and trying to navigate the menus I instantly find the site slow, boring and with horrible UX.</p>
-<p><strong>Next.js:</strong> <a href="https://nextjs.org/">https://nextjs.org/</a> however looks and feels tight and inspiring to get started with. Given the opportunity I will get back to this one. But React? Having worked with it (and enjoyed it), it still felt a bit much given my simple use case.</p>
-<p>At 3rd place when it com when it came to stars I found <strong>Hugo</strong> written in Go, with Go templates.</p>
-<p>&ldquo;A typical website of moderate size can be rendered in a fraction of a second. A good rule of thumb is that Hugo takes around 1 millisecond for each piece of content.&rdquo;</p>
-<p>That quote, the nice clean website/showroom (<a href="https://gohugo.io/">https://gohugo.io/</a>) and a chance to get more familiar with Go was enough for me to first try out Hugo.</p>
-<h4 id="the-process">The process</h4>
-<p>This time around I felt that the look and feel was a key factor so I spent some time trying to find a good theme to copy, and reduce time and misery trying to make something nice looking from scratch. Quickly I found a theme that I felt ticked my boxes in <a href="https://themes.gohugo.io//theme/raditian-free-hugo-theme/">https://themes.gohugo.io//theme/raditian-free-hugo-theme/</a>.</p>
-<p>Just like with Jekyll I wanted to avoid polluting my environment, at least until I had commited to use Hugo. At this point in time Hugo does not have an official docker image but their own installation page pointed to this one: <a href="https://hub.docker.com/r/klakegg/hugo/">https://hub.docker.com/r/klakegg/hugo/</a></p>
-<p>A docker-compose file later I was up and running with livereload out of the box.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">  <span style="color:#f92672">server</span>:
-    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">klakegg/hugo</span>
-    <span style="color:#f92672">command</span>: <span style="color:#ae81ff">server</span>
-    <span style="color:#f92672">volumes</span>:
-      - <span style="color:#e6db74">&#34;.:/src&#34;</span>
-    <span style="color:#f92672">ports</span>:
-      - <span style="color:#e6db74">&#34;1313:1313&#34;</span>
-</code></pre></div><p>Next to the compose file I also introduced a hugoshell.sh bash script allowing me to create a temp shell to work in when running custom hugo commands.</p>
-<h5 id="themes">Themes?</h5>
-<p>I was not impressed with how themes were introduced in Hugo documentation. Basically searching in their docs for &ldquo;theme&rdquo; the only reference is to the cli command to create a new theme. A quick google search told me to just download any theme repo and unzip it in the &ldquo;themes&rdquo; folder of my own project. Another option seems to use a git submodule. But I dont know, maybe I am conservative here but I believe anything that further complicates git should be avoided so I went for the clone/paste solution.</p>
-<p>The next revalation for me was that it seems my expectations were a bit off regarding what the &ldquo;theme&rdquo; was. The nice looking theme I had chosen (<a href="https://github.com/radity/raditian-free-hugo-theme">https://github.com/radity/raditian-free-hugo-theme</a>) quickly became a prison for me. Sure if had just done the exact same website but with my swedish looking face instead of the swiss looking one, and changed a few other things I could have had it done in little time. But the more I got familiar with the code it felt chunky, lots of hard to read html, inline script blocks and css animations and a fair amount of dated external dependencies such a jQuery, bootstrap, jquery, lazy, lozad and more.</p>
-<p>So out went the sexy swiss theme and in came the cli command I first found in the hugo search:</p>
-<pre><code>oscarberg.com/main&gt; hugo new theme oscar
+<!doctype html><html><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-SKB7HW5GSZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config',"G-SKB7HW5GSZ");</script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet type=text/css href=https://oversizedhat.github.io/oscarberg.com-dev/css/bootstrap.min.css><link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/css/style.min.css integrity><title>Oscar Wendelin Berg | Static site generators part 2 - Hugo</title></head><script async src=https://oversizedhat.github.io/oscarberg.com-dev/js/bundle.min.7d05a9cb8e65a5b8e3ced42dbafbd5c337b0a83a4ca1bde940f3e21e3fadf82f.js></script><body><div class="cookie-banner alert alert-info text-center mb-0" role=alert>🍪 This site is making use of some basic analytics cookies so I can hopefully learn something from of the metrics. By using the site you are totally fine with that.
+<button type=button class="btn btn-primary btn-sm ml-3" onclick=window.cookieBanner_accept()>
+Sure, thanks for letting me know</button></div><nav id=nav class="navbar sticky-top shadow p-3 mb-5 bg-white"><div class=container><a class="btn btn-outline-primary" href=https://oversizedhat.github.io/oscarberg.com-dev role=button>OWB</a>
+<a class=nav-link href=/oscarberg.com-dev/blog/><i data-feather=blog></i>Blog</a></div></nav><div id=content><div class=container><a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/arduino/ role=button>arduino <sup>1</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/hugo/ role=button>hugo <sup>1</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/jekyll/ role=button>jekyll <sup>1</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/static-site-generator/ role=button>static-site-generator <sup>2</sup></a><hr><h4>Static site generators part 2 - Hugo</h4><p>Compared to last post about Jekyll I wanted to take a static site a bit further and build my own personal website (this one) so the requirements I had were a bit more defined this time (well, in reality still just in my own head, but anyways). Hoping that I will spend some time on this website as well as ENJOY spending time on it I wanted something:</p><ul><li>Easy <strong>and fun</strong> to work with</li><li>Responsible UI out of the box</li><li>Site needs to look the way I want (without me having to put a lot of effort on it)</li><li>Cheap or free</li><li>Easy to extend in future</li><li>Ideally something hip and popular, lets face it. We all want to be hip, and work with new stuff</li><li>Ideally new for me so I learn something</li></ul><p>Going back to <a href=https://jamstack.org/generators/>https://jamstack.org/generators/</a></p><p>Looking at the top ones I think Next.js and Gatsby where the natural choices for me, with a decent amount of experience working with Nodejs, npm and React. Or maybe Nuxt or VuePress with Vue templates.</p><p><strong>Gatsby:</strong> Just opening <a href=https://www.gatsbyjs.com/>https://www.gatsbyjs.com/</a> gave me the chills. With a landing page looking like a corporate website from the late 90s, and trying to navigate the menus I instantly find the site slow, boring and with horrible UX.</p><p><strong>Next.js:</strong> <a href=https://nextjs.org/>https://nextjs.org/</a> however looks and feels tight and inspiring to get started with. Given the opportunity I will get back to this one. But React? Having worked with it (and enjoyed it), it still felt a bit much given my simple use case.</p><p>At 3rd place when it com when it came to stars I found <strong>Hugo</strong> written in Go, with Go templates.</p><p>&ldquo;A typical website of moderate size can be rendered in a fraction of a second. A good rule of thumb is that Hugo takes around 1 millisecond for each piece of content.&rdquo;</p><p>That quote, the nice clean website/showroom (<a href=https://gohugo.io/>https://gohugo.io/</a>) and a chance to get more familiar with Go was enough for me to first try out Hugo.</p><h4 id=the-process>The process</h4><p>This time around I felt that the look and feel was a key factor so I spent some time trying to find a good theme to copy, and reduce time and misery trying to make something nice looking from scratch. Quickly I found a theme that I felt ticked my boxes in <a href=https://themes.gohugo.io//theme/raditian-free-hugo-theme/>https://themes.gohugo.io//theme/raditian-free-hugo-theme/</a>.</p><p>Just like with Jekyll I wanted to avoid polluting my environment, at least until I had commited to use Hugo. At this point in time Hugo does not have an official docker image but their own installation page pointed to this one: <a href=https://hub.docker.com/r/klakegg/hugo/>https://hub.docker.com/r/klakegg/hugo/</a></p><p>A docker-compose file later I was up and running with livereload out of the box.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml>  <span style=color:#f92672>server</span>:
+    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>klakegg/hugo</span>
+    <span style=color:#f92672>command</span>: <span style=color:#ae81ff>server</span>
+    <span style=color:#f92672>volumes</span>:
+      - <span style=color:#e6db74>&#34;.:/src&#34;</span>
+    <span style=color:#f92672>ports</span>:
+      - <span style=color:#e6db74>&#34;1313:1313&#34;</span>
+</code></pre></div><p>Next to the compose file I also introduced a hugoshell.sh bash script allowing me to create a temp shell to work in when running custom hugo commands.</p><h5 id=themes>Themes?</h5><p>I was not impressed with how themes were introduced in Hugo documentation. Basically searching in their docs for &ldquo;theme&rdquo; the only reference is to the cli command to create a new theme. A quick google search told me to just download any theme repo and unzip it in the &ldquo;themes&rdquo; folder of my own project. Another option seems to use a git submodule. But I dont know, maybe I am conservative here but I believe anything that further complicates git should be avoided so I went for the clone/paste solution.</p><p>The next revalation for me was that it seems my expectations were a bit off regarding what the &ldquo;theme&rdquo; was. The nice looking theme I had chosen (<a href=https://github.com/radity/raditian-free-hugo-theme>https://github.com/radity/raditian-free-hugo-theme</a>) quickly became a prison for me. Sure if had just done the exact same website but with my swedish looking face instead of the swiss looking one, and changed a few other things I could have had it done in little time. But the more I got familiar with the code it felt chunky, lots of hard to read html, inline script blocks and css animations and a fair amount of dated external dependencies such a jQuery, bootstrap, jquery, lazy, lozad and more.</p><p>So out went the sexy swiss theme and in came the cli command I first found in the hugo search:</p><pre><code>oscarberg.com/main&gt; hugo new theme oscar
 </code></pre><p>Or basically I pretty much followed this guide: <a href="https://retrolog.io/blog/creating-a-hugo-theme-from-scratch/'">https://retrolog.io/blog/creating-a-hugo-theme-from-scratch/'</a>
-Again it came with Bootstrap, but now I was more ready to understand that I needed some kind of UI framework and why not Bootstrap. It felt like a good choice for what I wanted to do, which as to keep it simple.</p>
-<h4 id="take-aways">Take aways</h4>
-<p>This website is the output so far. With sources public in github: <a href="https://github.com/oversizedhat/oscarberg.com">https://github.com/oversizedhat/oscarberg.com</a>.</p>
-<p>As it&rsquo;s not possible to use GitHub pages out of the box with Hugo, I added a travis build step that compiles the sources in one repo and pushes them to another, which is acting &ldquo;stage&rdquo; environment for the real website.</p>
-<p>Based on the few hours of experience so far it&rsquo;s hard to say yey or ney to Hugo. I am still a bit unsure of the theme concept. And coming from the Nodejs+npm world I dislike this way of adding external dependencies by pasting in minified js files in my own repo. (package.json come rescue me!!). But on the other hand it has been very easy to work with Hugo, and lightning fast. AND I dont have to look at a node_modules folder with 1000 dependencies. But then again I haven&rsquo;t come to the complex stuff yet, and with more complexity comes the need for proper test automation. And I have no idea of browser support. So we will see where this lands in the end.</p>
-
-    
-
-<i data-feather="calendar"></i>
-<time datetime="2020-11-10">Nov 10, 2020</time>
-
-<i data-feather="tag"></i>
-
-
-<a class="btn btn-sm btn-outline-dark tag-btn" href="https://oversizedhat.github.io/oscarberg.com-dev/tags/hugo">hugo</a>
-
-
-
-<a class="btn btn-sm btn-outline-dark tag-btn" href="https://oversizedhat.github.io/oscarberg.com-dev/tags/static-site-generator">static site generator</a>
-
-
-
-
-    <br><br>
-</div>
-
-        </div><div class="container">
-    <p class="footer text-center">2020 Oscar Wendelin Berg</p>
-    <p class="footer text-center"><a href="https://github.com/oversizedhat/oscarberg.com">If you are keen on building a page like this, the source code is here..</a></p>
-</div></body>
-</html>
+Again it came with Bootstrap, but now I was more ready to understand that I needed some kind of UI framework and why not Bootstrap. It felt like a good choice for what I wanted to do, which as to keep it simple.</p><h4 id=take-aways>Take aways</h4><p>This website is the output so far. With sources public in github: <a href=https://github.com/oversizedhat/oscarberg.com>https://github.com/oversizedhat/oscarberg.com</a>.</p><p>As it&rsquo;s not possible to use GitHub pages out of the box with Hugo, I added a travis build step that compiles the sources in one repo and pushes them to another, which is acting &ldquo;stage&rdquo; environment for the real website.</p><p>Based on the few hours of experience so far it&rsquo;s hard to say yey or ney to Hugo. I am still a bit unsure of the theme concept. And coming from the Nodejs+npm world I dislike this way of adding external dependencies by pasting in minified js files in my own repo. (package.json come rescue me!!). But on the other hand it has been very easy to work with Hugo, and lightning fast. AND I dont have to look at a node_modules folder with 1000 dependencies. But then again I haven&rsquo;t come to the complex stuff yet, and with more complexity comes the need for proper test automation. And I have no idea of browser support. So we will see where this lands in the end.</p><i data-feather=calendar></i><time datetime=2020-11-10>Nov 10, 2020</time>
+<i data-feather=tag></i><a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/hugo>hugo</a>
+<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/static-site-generator>static site generator</a><br><br></div></div><div class=container><p class="footer text-center">2020 Oscar Wendelin Berg</p><p class="footer text-center"><a href=https://github.com/oversizedhat/oscarberg.com>If you are keen on building a page like this, the source code is here..</a></p></div></body></html>
