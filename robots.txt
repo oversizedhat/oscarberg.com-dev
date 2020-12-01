@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://oversizedhat.github.io/oscarberg.com-dev/sitemap.xml
