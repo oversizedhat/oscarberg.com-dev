@@ -1,0 +1,79 @@
+<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-SKB7HW5GSZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config',"G-SKB7HW5GSZ");</script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/css/bootstrap/bootstrap.min.css><link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/css/style.min.9e89ddfa67b920f47f45f298988f3462205e65a13968c648c8e274f386753e55.css><title>Oscar Wendelin Berg | Hugo + npm = Awesome?</title></head><script async src=https://oversizedhat.github.io/oscarberg.com-dev/js/bundle.min.7d05a9cb8e65a5b8e3ced42dbafbd5c337b0a83a4ca1bde940f3e21e3fadf82f.js></script><body><nav id=nav class="navbar sticky-top shadow p-3 mb-5 bg-white"><div class=container><a class="btn btn-outline-primary" href=https://oversizedhat.github.io/oscarberg.com-dev role=button>OWB</a>
+<a class=nav-link href=/oscarberg.com-dev/blog/><i data-feather=blog></i>Blog</a></div></nav><div id=content><div class=container><a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/arduino/ role=button>arduino <sup>1</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/docker/ role=button>docker <sup>1</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/htmlhint/ role=button>htmlhint <sup>1</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/hugo/ role=button>hugo <sup>2</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/jekyll/ role=button>jekyll <sup>1</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/npm/ role=button>npm <sup>2</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/rpi/ role=button>rpi <sup>1</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/semantic-release/ role=button>semantic-release <sup>1</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/semver/ role=button>semver <sup>1</sup></a>
+<a class="btn btn-outline-primary" href=/oscarberg.com-dev/tags/static-site-generator/ role=button>static-site-generator <sup>3</sup></a><hr><h4>Hugo + npm = Awesome?</h4><time datetime=2020-12-10><p class=small>Dec 10, 2020</p></time><p>Anyone setting up a blog/static site using Hugo is destined to quickly start missing the conveniency of having some kind of build system/package manager at their disposal. The following text describes some basic setup instructions for wrapping your Hugo project with some npm magic and get something that can easily be expanded on depending on the requirements of the project at hand.</p><p>If you are looking into using Hugo, my first experience can be found <a href=https://oversizedhat.github.io/oscarberg.com-dev/blog/hugo/ title="About Us">here.</a></p><p>So&mldr; after my initial setup of a Hugo blog (this site) I quickly found that I lacked basic functionality of some kind of build system. And when it started to evolve into custom bash scripts I found it was better to just make use of npm instead.</p><h6 id=i-wanted-npm-to-provide-me><strong>I wanted npm to provide me</strong></h6><ol><li>&ldquo;Boostrapping&rdquo; and easy management of third-party dependencies</li><li>Life cycle scripts for the recurring activities handling the &ldquo;application&rdquo; as a whole</li><li>Easy way to incorporate at least some kind of post build validation of the web page.</li></ol><h5 id=1-add-hugo-assets-from-node_modules>1. Add Hugo assets from node_modules</h5><p>Resort to the official npm docs <a href=https://docs.npmjs.com/>https://docs.npmjs.com/</a> for regarding installation of nodejs+npm, and setting up a npm project (&lsquo;npm init&rsquo;).</p><p>With a package.json in place I was could replace my locally bundled bootstrap css by adding it as a dependency and then using the Hugo mounts config feature to mount the node_modules folder to the assets folder. <strong>You need to</strong> mount it to the assets folder as it allows you to do a lot of neat asset processing using <a href=https://gohugo.io/hugo-pipes/introduction/>Hugo Pipes</a>. Which is a great feature btw.</p><h6 id=step-by-step>Step by step:</h6><ol><li>Add bootstrap to the project</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>npm install bootstrap
+</code></pre></div><ol start=2><li>Mount the folder to assets</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml>[<span style=color:#a6e22e>module</span>]
+  [[<span style=color:#a6e22e>module</span>.<span style=color:#a6e22e>mounts</span>]]
+    <span style=color:#a6e22e>source</span> = <span style=color:#e6db74>&#34;./node_modules/bootstrap/dist/css&#34;</span>
+    <span style=color:#a6e22e>target</span> = <span style=color:#e6db74>&#34;./assets/css/bootstrap&#34;</span>
+</code></pre></div><ol start=3><li>Make sure it&rsquo;s used in the relevant html template</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html>{{ $bootstrap := resources.Get &#34;css/bootstrap/bootstrap.min.css&#34; }}
+&lt;<span style=color:#f92672>link</span> <span style=color:#a6e22e>rel</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stylesheet&#34;</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;{{ $bootstrap.Permalink }}&#34;</span>&gt;
+</code></pre></div><p>Thats it, any bundled bootstrap files can be removed. And if I ever have to bump the version it is managed an easy.</p><p>Note that here I&rsquo;m not doing any fancy piping as I use the minified css that comes with bootstrap, but basically you can do all sorts of things with pipes; like minifying, adding fingerprints etc.</p><h5 id=2-necessities-of-a-build-system>2. Necessities of a build system</h5><p>Next part was a way to organize usual activities, such as building, testing and deploying.</p><p>As mentioned, in lack of a build system I had started making bash scripts. Also the .travis.yml served as some kind of build system as it was doing work for me. But neither expanding on the Travis config nor making more bash scripts felt like a good idea. Instead I wrapped what I had with npm scripts.</p><p>More or less self explanatory I think. I made so the default hugo serving also enabled the drafts, but excluding them when making a staging or production build.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json> <span style=color:#960050;background-color:#1e0010>...</span>
+  <span style=color:#e6db74>&#34;scripts&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> {
+    <span style=color:#f92672>&#34;serve&#34;</span>: <span style=color:#e6db74>&#34;bash dev.sh --with-drafts&#34;</span>,
+    <span style=color:#f92672>&#34;serve:prod&#34;</span>: <span style=color:#e6db74>&#34;bash dev.sh&#34;</span>,
+    <span style=color:#f92672>&#34;build&#34;</span>: <span style=color:#e6db74>&#34;npm run compile &amp;&amp; npm run lint:postbuild&#34;</span>,
+    <span style=color:#f92672>&#34;compile&#34;</span>: <span style=color:#e6db74>&#34;bash build.sh&#34;</span>,
+    <span style=color:#f92672>&#34;lint:postbuild&#34;</span>: <span style=color:#e6db74>&#34;npx htmlhint target&#34;</span>,
+    <span style=color:#f92672>&#34;deploy:dev&#34;</span>: <span style=color:#e6db74>&#34;bash deploy-dev.sh&#34;</span>,
+    <span style=color:#f92672>&#34;deploy:prod&#34;</span>: <span style=color:#e6db74>&#34;echo &#39;not setup for Travis&#39;&#34;</span>,
+    <span style=color:#f92672>&#34;oscarberg.com&#34;</span>: <span style=color:#e6db74>&#34;npm version patch &amp;&amp; bash deploy-prod.sh -y&#34;</span>,
+    <span style=color:#f92672>&#34;hugoshell&#34;</span>: <span style=color:#e6db74>&#34;bash hugoshell.sh&#34;</span>,
+    <span style=color:#f92672>&#34;preversion&#34;</span>: <span style=color:#e6db74>&#34;npm run build&#34;</span>,
+    <span style=color:#f92672>&#34;postversion&#34;</span>: <span style=color:#e6db74>&#34;git push &amp;&amp; git push --tags&#34;</span>
+  }<span style=color:#960050;background-color:#1e0010>,</span>
+  <span style=color:#960050;background-color:#1e0010>...</span>
+</code></pre></div><p>So far I do &ldquo;production&rdquo; deployments from local machine, but let travis manage the &ldquo;stage&rdquo; environment. The build queues for free open source projects can take several hours in Travis. I prefer production to be a bit more controlled than that assuming I will make mistakes.</p><h5 id=3-at-least-some-kind-of-build-validation>3. At least some kind of build validation</h5><p>Even though this is pretty much a &ldquo;for fun&rdquo; project (without any kind of serious requirements on anything really) I figured I wanted at least some kind of automated validation before putting anything in production. Especially now that I had prepped so nicely for it&mldr; E2E testing felt like too much trouble and there isnt really any code to unit test. So I ended up added HTMLhint on the Hugo output site.</p><p><a href=https://www.npmjs.com/package/htmlhint>HTMLHint</a> provides some basic static code analyis of HTML and is easy to install and execute in any npm project. (<code>npm install htmlhint --save-dev</code>)</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>  <span style=color:#e6db74>&#34;devDependencies&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> {
+    <span style=color:#f92672>&#34;htmlhint&#34;</span>: <span style=color:#e6db74>&#34;~0.14.2&#34;</span>
+  }<span style=color:#960050;background-color:#1e0010>,</span>
+</code></pre></div><p>As can be seen in the package.json script snippets above its triggered in the build chain, but can also be run manually.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>npm run lint:postbuild
+</code></pre></div><p>So now if I make a boo-boo I have Hugo acting compiler and catching bigger issues, and then I have the linter at least catching some of the details that can slip by, like unclosed tags:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>&gt; oscarberg.com@1.0.1 lint:postbuild /home/oscar/repos/oversizedhat/oscarberg.com
+&gt; npx htmlhint target
+
+
+   Config loaded: /home/oscar/repos/oversizedhat/oscarberg.com/.htmlhintrc
+
+   /home/oscar/repos/oversizedhat/oscarberg.com/target/404.html
+      L5 |...hanks <span style=color:#66d9ef>for</span> letting me know&lt;/button&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+                                                     ^ Tag must be paired, missing: <span style=color:#f92672>[</span> &lt;/div&gt; <span style=color:#f92672>]</span>, start tag match failed <span style=color:#f92672>[</span> &lt;div id<span style=color:#f92672>=</span>content&gt; <span style=color:#f92672>]</span> on line 3. <span style=color:#f92672>(</span>tag-pair<span style=color:#f92672>)</span>
+
+Scanned <span style=color:#ae81ff>19</span> files, found <span style=color:#ae81ff>1</span> errors in <span style=color:#ae81ff>1</span> files <span style=color:#f92672>(</span><span style=color:#ae81ff>41</span> ms<span style=color:#f92672>)</span>
+
+</code></pre></div><h4 id=final-remarks-and-takeways>Final remarks and takeways</h4><p>Npm is pleasant to work with. With a small amount of boilerplate it&rsquo;s possible to wrap any kind of project with a repository and basic &ldquo;application level&rdquo; activities. And when in front-end, it makes no sense not to utilize the massive registry of open source packages.</p><p>As a side effect the travis yml ended up clean and simple, just making use of the scripts, effectively hiding any complexity.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=color:#f92672>language</span>: <span style=color:#ae81ff>node_js</span>
+
+<span style=color:#f92672>node_js</span>:
+  - <span style=color:#ae81ff>14</span>
+
+<span style=color:#f92672>services</span>:
+  - <span style=color:#ae81ff>docker</span>
+
+<span style=color:#f92672>env</span>:
+  - <span style=color:#ae81ff>HUGO_DEPLOY_ENV=stage</span>
+  
+<span style=color:#f92672>before_script</span>:
+  - <span style=color:#ae81ff>npm ci</span>
+
+<span style=color:#f92672>script</span>:
+  - <span style=color:#ae81ff>npm run compile</span>
+  - <span style=color:#ae81ff>npm run lint:postbuild</span>
+
+<span style=color:#f92672>deploy</span>:
+  - <span style=color:#f92672>provider</span>: <span style=color:#ae81ff>script</span>
+    <span style=color:#f92672>script</span>: <span style=color:#ae81ff>npm run deploy:dev</span>
+    <span style=color:#f92672>skip_cleanup</span>: <span style=color:#66d9ef>true</span>
+    <span style=color:#f92672>on</span>:
+      <span style=color:#f92672>branch</span>: <span style=color:#ae81ff>main</span>
+</code></pre></div><p>This website is the output so far. With sources public in github: <a href=https://github.com/oversizedhat/oscarberg.com>https://github.com/oversizedhat/oscarberg.com</a>.</p><p>❤️</p><br><i data-feather=calendar></i><time datetime=2020-12-10><p class=small>Dec 10, 2020</p></time><i data-feather=tag></i><a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/hugo>hugo</a>
+<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/static-site-generator>static site generator</a>
+<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/npm>npm</a>
+<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/htmlhint>htmlhint</a></div></div><div class=container><p class="footer text-center">© Oscar Wendelin Berg, 2020</p><p class="footer text-center"><small>If you are keen on building a page like this, the source code is <a href=https://github.com/oversizedhat/oscarberg.com>here</a>...</small></p><p class="footer text-center"><small>Elegant wallpapers from <a href=https://patterncooler.com/>https://patterncooler.com</a></small></p></div><div class="cookie-banner alert alert-info text-center mb-0" role=alert>🍪 This site is making use of some basic analytics cookies so I can hopefully learn something from of the metrics. By using the site you are totally fine with that.
+<button type=button class="btn btn-primary btn-sm ml-3" onclick=window.cookieBanner_accept()>
+Sure, thanks for letting me know</button></div></body></html>
