@@ -1,0 +1,115 @@
+<!doctype html><html lang=en>
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SKB7HW5GSZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config',"G-SKB7HW5GSZ")</script>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/scss/bootstrap.4539090675735665eb7e776111dc37af99675653e599127fa28e6fa6cd654e38.css>
+<link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/css/style.min.a4bb077baea09eb61a956e66168a349941afc18fbcc30cb5838e0da406b6b0ed.css>
+<title>Unity editor scripting - A real world use case | Oscar Wendelin Berg</title>
+</head>
+<script src=https://oversizedhat.github.io/oscarberg.com-dev/js/bundle.min.04f7223e7b856970fb4764b827b283c3764176e76515c259612bd506daf90821.js></script>
+<body>
+<nav id=nav class="navbar sticky-top shadow p-3 mb-5 bg-white">
+<div class=container>
+<a class="btn btn-outline-primary" href=https://oversizedhat.github.io/oscarberg.com-dev role=button>OWB</a>
+<a class=nav-link href=/oscarberg.com-dev/blog/>
+<i data-feather=blog></i>
+Blog
+</a>
+</div>
+</nav>
+<div id=content>
+<div class="container text-break">
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/arduino/ role=button>arduino <sup>1</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/docker/ role=button>docker <sup>2</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/editor-script/ role=button>editor-script <sup>1</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/htmlhint/ role=button>htmlhint <sup>1</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/hugo/ role=button>hugo <sup>2</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/jekyll/ role=button>jekyll <sup>1</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/npm/ role=button>npm <sup>2</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/plantuml/ role=button>plantuml <sup>1</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/rpi/ role=button>rpi <sup>1</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/semantic-release/ role=button>semantic-release <sup>1</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/semver/ role=button>semver <sup>1</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/static-site-generator/ role=button>static-site-generator <sup>3</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/unity/ role=button>unity <sup>1</sup></a>
+<hr>
+<h4>Unity editor scripting - A real world use case</h4>
+<time datetime=2021-10-04><p class=small>Oct 4, 2021</p></time>
+<div><img class="img-fluid pb-3" src=https://oversizedhat.github.io/blog/video/unity-editor-scripts-vid.mp4 alt></div>
+<div class="img-fluid pb-3">
+<video controls style=width:100%>
+<source src=https://oversizedhat.github.io/blog/video/unity-editor-scripts-vid.mp4 type=video/mp4>
+<p>Your browser doesn't support HTML5 video. Here is
+a <a href=https://oversizedhat.github.io/blog/video/unity-editor-scripts-vid.mp4>link to the video</a> instead.</p>
+</video>
+</div>
+<p>After getting some play-time in Unity I found that one of the more exciting features is the ability to quite easily extend the base editor functionality by writing your own editor scripts.</p>
+<p>Even though I feel I’ve only been touching the surface (this is the first real project I&rsquo;ve made using Unity) I feel there is a shortage of good guides and real world experiences using editor scripts. This post aims to illustrate a situation where I found custom editor scripts very useful myself in our app <a href=https://www.spaceandtimeapp.com>Space & Time</a>.</p>
+<h4 id=space--time-lessons-practical-use-case>Space & Time “lessons” practical use case</h4>
+<p>The app features a dynamic interactive scene where the user can interact with the Earth and other terrestrial bodies like the Sun and the Moon. In a “sandbox” mode the user can interact with the scene in different ways; like manipulating date & time, adding locations, dropping down to the Earth’s surface level etc.</p>
+<div>
+<img class="img-fluid pb-3" src=/oscarberg.com-dev/img/blog/unity-editor-scripts-sandbox_hu3ccc7a03671b777be8ee066f51d4ebf5_841529_979x0_resize_q85_bgffffff_box_3.jpg alt="Space & Time app - sandbox mode">
+</div>
+<p>In the second part of the app we guide the user in the same scene. We enable/disable features, change camera views and try to explain different things. Basically we act as a teacher.</p>
+<p>In the app it’s today possible to choose between about 16 guides (in code we call them lessons&mldr;) each of them containing somewhere between 7-20 steps. So it&rsquo;s well over 200 interactive steps in total.</p>
+<div>
+<img class="img-fluid pb-3" src=/oscarberg.com-dev/img/blog/unity-editor-scripts-guides_hu2b2c174925ba020e4ef13a0b18251e42_434336_973x0_resize_q85_bgffffff_box_3.jpg alt="Space & Time app - interactive guides">
+</div>
+<p>Each of these steps needs enough configuration to display the scene in a certain way.</p>
+<p>We also figured that we occasionally wanted custom elements (game objects) in any given step, as well as support for working with multiple languages.</p>
+<p>The main challenge of setting it up was to make it easy enough to work with when adding content, i.e. when adding new lessons and lesson steps. This is where the editor scripts came in.</p>
+<h4 id=prefabs-prefabs-prefabs>Prefabs, prefabs, prefabs</h4>
+<p>At first we had the lesson configuration in a text object format supported by code. It wasn&rsquo;t all bad to start with because code can be iterated on quickly and when the end goal is unclear. But as soon as the structure and our own requirements were settling down it became obvious that we wanted something more visual, and using prefabs felt like the obvious choice. Also this was part of myself learning Unity I think. The more I learned the more I felt compelled not to re-invent any wheel. The more I adapted to standards the better I could float in the current of existing tooling.</p>
+<p>Basically a lesson is made up of two prefab types. One is the lesson configuration itself (i.e. a collection of lesson steps), and one is for any given step inside a lesson.</p>
+<p>When starting a lesson during editor play mode the specific lesson step prefabs are added to the scene and it’s easy and intuitive how to interact with them.</p>
+<div>
+<img class="img-fluid pb-3" src=/oscarberg.com-dev/img/blog/unity-editor-scripts-intuitive_huaa6e47f027c833159e5a2b326f05a32b_295076_1842x0_resize_q85_bgffffff_box_3.jpg alt="Space & Time app - standard Unity scene workflow">
+</div>
+<p>We rely on editor scripts to create and edit the configuration of any lesson and lesson step. The nicest thing is being able to modfiy a step directly in the editor during play mode and have the step instantly reload on any change, and also saving the updated prefab (if it passes through a bunch of validation tests written to help avoid human errors). And as we have the prefab in the scene we can even pull in custom game objects straight into the scene, layout and save. A huge benefit is that we can also edit/iterate on localized text pretty much exactly how it will be displayed in the final build.</p>
+<div>
+<img class="img-fluid pb-3" src=/oscarberg.com-dev/img/blog/unity-editor-scripts-custom_hu70b8ada39379ea9c04c4afeabe43e0c9_723337_1298x0_resize_q85_bgffffff_box_3.jpg alt="Space & Time app - custom game objects">
+</div>
+<h4 id=a-script-written-to-run-only-once-can-still-save-you-time>A script written to run only once can still save you time</h4>
+<p>Another tip of mine is to consider editor scripts when you want to make a significant change in your project structure. Sometimes it makes sense to just write a very custom editor script that does a task once (but at the same time allowing you to try it many times first). Going back to how we changed from using text based config of the lessons. I made a custom editor script that converted all the existing lessons to prefabs. And a similar, short-lived, setup was made converting all lesson step texts to a KeyValuePair setup with a localization framework.</p>
+<p>As for tech details the Unity Script reference is a good resource even though it often feels difficult to navigate:
+<a href=https://docs.unity3d.com/ScriptReference/>https://docs.unity3d.com/ScriptReference/</a></p>
+<h5 id=here-are-a-few-good-starting-points>Here are a few good starting points:</h5>
+<p>Take control over the Inspector window by writing a custom inspector.<br>
+<a href=https://docs.unity3d.com/ScriptReference/Editor.html>https://docs.unity3d.com/ScriptReference/Editor.html</a></p>
+<p>Write your own menu items/windows.<br>
+<a href=https://docs.unity3d.com/ScriptReference/MenuItem.html>https://docs.unity3d.com/ScriptReference/MenuItem.html</a>
+<a href=https://docs.unity3d.com/ScriptReference/EditorWindow.html>https://docs.unity3d.com/ScriptReference/EditorWindow.html</a></p>
+<p>Interact with prefabs:<br>
+<a href=https://docs.unity3d.com/ScriptReference/PrefabUtility.html>https://docs.unity3d.com/ScriptReference/PrefabUtility.html</a></p>
+<p class=lead>And oh, make sure you have some kind of VCS setup first because chances are you will want to revert some changes.</p>
+<p>Hope this comes to use for anyone in a similar situation ❤️</p>
+<p>And if it did make sure to download the app: 😊
+<a href=https://www.spaceandtimeapp.com>https://www.spaceandtimeapp.com</a></p>
+<br>
+Feel free to get in touch if you have any questions.<div>
+<a class="btn btn-primary btn-sm" id=getintouch_mini role=button onclick=MeMail()>Click to reveal contact details</a>
+<a class="btn btn-default" role=button href=https://www.linkedin.com/in/bergoscar>
+<img class=img-responsive width=24 src=https://oversizedhat.github.io/oscarberg.com-dev/img/icon_linkedin64.png alt=dude>
+</a>
+<script>registerContactElement("getintouch_mini")</script>
+</div>
+<i data-feather=calendar></i>
+<time datetime=2021-10-04><p class=small>Oct 4, 2021</p></time>
+<i data-feather=tag></i>
+<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/unity>unity</a>
+<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/editor-script>editor script</a>
+</div>
+</div><div class=container>
+<p class="footer text-center">© Oscar Wendelin Berg, 2021</p>
+<p class="footer text-center"><small>If you are keen on building a page like this, the source code is <a href=https://github.com/oversizedhat/oscarberg.com>here</a>...</small></p>
+<p class="footer text-center"><small>Elegant wallpapers from <a href=https://patterncooler.com/>https://patterncooler.com</a></small></p>
+</div><div class="cookie-banner alert alert-info text-center mb-0" role=alert>
+🍪 This site is making use of some basic analytics cookies so I can hopefully learn something from of the metrics. By using the site you are totally fine with that.
+<button type=button class="btn btn-primary btn-sm ml-3" onclick=window.cookieBanner_accept()>
+Sure, thanks for letting me know
+</button>
+</div>
+</body>
+</html>

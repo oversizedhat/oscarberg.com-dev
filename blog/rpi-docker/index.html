@@ -1,7 +1,29 @@
-<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-SKB7HW5GSZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());gtag('config',"G-SKB7HW5GSZ");</script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/css/bootstrap/bootstrap.min.css><link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/css/style.min.9e89ddfa67b920f47f45f298988f3462205e65a13968c648c8e274f386753e55.css><title>Setting up RPi with docker & docker-compose | Oscar Wendelin Berg</title></head><script src=https://oversizedhat.github.io/oscarberg.com-dev/js/bundle.min.e85de3a6cdd15a1b227547815e7f1db96f9704bf77eb40374dfc804ee5a265fe.js></script><body><nav id=nav class="navbar sticky-top shadow p-3 mb-5 bg-white"><div class=container><a class="btn btn-outline-primary" href=https://oversizedhat.github.io/oscarberg.com-dev role=button>OWB</a>
-<a class=nav-link href=/oscarberg.com-dev/blog/><i data-feather=blog></i>Blog</a></div></nav><div id=content><div class=container><a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/arduino/ role=button>arduino <sup>1</sup></a>
+<!doctype html><html lang=en>
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SKB7HW5GSZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config',"G-SKB7HW5GSZ")</script>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/scss/bootstrap.4539090675735665eb7e776111dc37af99675653e599127fa28e6fa6cd654e38.css>
+<link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/css/style.min.a4bb077baea09eb61a956e66168a349941afc18fbcc30cb5838e0da406b6b0ed.css>
+<title>Setting up RPi with docker & docker-compose | Oscar Wendelin Berg</title>
+</head>
+<script src=https://oversizedhat.github.io/oscarberg.com-dev/js/bundle.min.04f7223e7b856970fb4764b827b283c3764176e76515c259612bd506daf90821.js></script>
+<body>
+<nav id=nav class="navbar sticky-top shadow p-3 mb-5 bg-white">
+<div class=container>
+<a class="btn btn-outline-primary" href=https://oversizedhat.github.io/oscarberg.com-dev role=button>OWB</a>
+<a class=nav-link href=/oscarberg.com-dev/blog/>
+<i data-feather=blog></i>
+Blog
+</a>
+</div>
+</nav>
+<div id=content>
+<div class="container text-break">
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/arduino/ role=button>arduino <sup>1</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/docker/ role=button>docker <sup>2</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/editor-script/ role=button>editor-script <sup>1</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/htmlhint/ role=button>htmlhint <sup>1</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/hugo/ role=button>hugo <sup>2</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/jekyll/ role=button>jekyll <sup>1</sup></a>
@@ -10,13 +32,32 @@ gtag('js',new Date());gtag('config',"G-SKB7HW5GSZ");</script><meta charset=utf-8
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/rpi/ role=button>rpi <sup>1</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/semantic-release/ role=button>semantic-release <sup>1</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/semver/ role=button>semver <sup>1</sup></a>
-<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/static-site-generator/ role=button>static-site-generator <sup>3</sup></a><hr><h4>Setting up RPi with docker & docker-compose</h4><time datetime=2020-11-19><p class=small>Nov 19, 2020</p></time><p>I recently bought a Raspberry Pi 4 2GB for random home use.</p><p>The installation went fairly smooth but still required some googling, so if anything this guide might be useful for myself in the future.</p><ol><li>The <a href=https://www.raspberrypi.org/documentation/installation/installing-images/README.md>official RPi installation guide</a> requires you to have a SD card reader at hand which I did not so I thought I might use my Android phone instead for the installation of Raspberry OS image.</li><li>Luckily there was even an Android App for it: <a href="https://play.google.com/store/apps/details?id=com.redrobe.raspicardimager">https://play.google.com/store/apps/details?id=com.redrobe.raspicardimager</a>. In it I went for the standard Raspberry Pi OS 3,2 GB version and seemed to install nicely on the SD card (make sure to tick the &lsquo;Enable ssh&mldr;&rsquo; checkbox) However when booting up the RPi with it did not start. After I tried formatting the SD card and installing the same image again it booted up fine. I have no idea if this flaky behavior is something to be expected but it sure had me worried.</li><li>Start the Pi and change the default password.</li><li>Connect the RPi to your local wifi and note the aquired IP. For conveniency add the host details to your ~/.ssh/config file.</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>Host rpi
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/static-site-generator/ role=button>static-site-generator <sup>3</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/unity/ role=button>unity <sup>1</sup></a>
+<hr>
+<h4>Setting up RPi with docker & docker-compose</h4>
+<time datetime=2020-11-19><p class=small>Nov 19, 2020</p></time>
+<p>I recently bought a Raspberry Pi 4 2GB for random home use.</p>
+<p>The installation went fairly smooth but still required some googling, so if anything this guide might be useful for myself in the future.</p>
+<ol>
+<li>The <a href=https://www.raspberrypi.org/documentation/installation/installing-images/README.md>official RPi installation guide</a> requires you to have a SD card reader at hand which I did not so I thought I might use my Android phone instead for the installation of Raspberry OS image.</li>
+<li>Luckily there was even an Android App for it: <a href="https://play.google.com/store/apps/details?id=com.redrobe.raspicardimager">https://play.google.com/store/apps/details?id=com.redrobe.raspicardimager</a>. In it I went for the standard Raspberry Pi OS 3,2 GB version and seemed to install nicely on the SD card (make sure to tick the &lsquo;Enable ssh&mldr;&rsquo; checkbox) However when booting up the RPi with it did not start. After I tried formatting the SD card and installing the same image again it booted up fine. I have no idea if this flaky behavior is something to be expected but it sure had me worried.</li>
+<li>Start the Pi and change the default password.</li>
+<li>Connect the RPi to your local wifi and note the aquired IP. For conveniency add the host details to your ~/.ssh/config file.</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>Host rpi
     HostName 192.168.0.XXX
     User pi
     Port <span style=color:#ae81ff>22</span>
-</code></pre></div><ol start=5><li>Feed a public key to the Pi to avoid hassle of using passwords.</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># this will prompt for password</span>
+</code></pre></div><ol start=5>
+<li>Feed a public key to the Pi to avoid hassle of using passwords.</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># this will prompt for password</span>
 ssh-copy-id rpi
-</code></pre></div><ol start=6><li>&mldr;and afterwards you can login without any password.</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ssh rpi
+</code></pre></div><ol start=6>
+<li>&mldr;and afterwards you can login without any password.</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ssh rpi
 Linux raspberrypi 5.4.51-v7l+ <span style=color:#75715e>#1333 SMP Mon Aug 10 16:51:40 BST 2020 armv7l</span>
 
 The programs included with the Debian GNU/Linux system are free software;
@@ -26,16 +67,43 @@ individual files in /usr/share/doc/*/copyright.
 ..
 .
 GREAT SUCCESS!!
-</code></pre></div><hr><h4 id=install-docker--docker-compose>Install docker + docker-compose</h4><p>There are plenty of guides for this so here is the slimmest one (I believe also assuming you at least installed the 3.2 GB RPi OS):</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>sudo apt-get update <span style=color:#f92672>&amp;&amp;</span> sudo apt-get upgrade
+</code></pre></div><hr>
+<h4 id=install-docker--docker-compose>Install docker + docker-compose</h4>
+<p>There are plenty of guides for this so here is the slimmest one (I believe also assuming you at least installed the 3.2 GB RPi OS):</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>sudo apt-get update <span style=color:#f92672>&amp;&amp;</span> sudo apt-get upgrade
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh 
 rm -rf get-docker.sh 
 sudo usermod -aG docker pi
 sudo pip3 install docker-compose
-</code></pre></div><p>Now you are set up to do whatever kind of madness you set out to do.</p><hr><h4 id=bonus-copy-a-local-directory-to-your-pi>Bonus, copy a local directory to your Pi</h4><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>scp -r folder rpi:/home/pi
-</code></pre></div><br>Feel free to get in touch if you have any questions.<div><a class="btn btn-primary btn-sm" id=getintouch_mini role=button onclick=MeMail()>Click to reveal contact details</a>
-<a class="btn btn-default" role=button href=https://www.linkedin.com/in/bergoscar><img class=img-responsive width=24 src=https://oversizedhat.github.io/oscarberg.com-dev/img/icon_linkedin64.png alt=dude></a>
-<script>registerContactElement("getintouch_mini");</script></div><i data-feather=calendar></i><time datetime=2020-11-19><p class=small>Nov 19, 2020</p></time><i data-feather=tag></i><a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/docker>docker</a>
-<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/rpi>RPi</a></div></div><div class=container><p class="footer text-center">© Oscar Wendelin Berg, 2021</p><p class="footer text-center"><small>If you are keen on building a page like this, the source code is <a href=https://github.com/oversizedhat/oscarberg.com>here</a>...</small></p><p class="footer text-center"><small>Elegant wallpapers from <a href=https://patterncooler.com/>https://patterncooler.com</a></small></p></div><div class="cookie-banner alert alert-info text-center mb-0" role=alert>🍪 This site is making use of some basic analytics cookies so I can hopefully learn something from of the metrics. By using the site you are totally fine with that.
+</code></pre></div><p>Now you are set up to do whatever kind of madness you set out to do.</p>
+<hr>
+<h4 id=bonus-copy-a-local-directory-to-your-pi>Bonus, copy a local directory to your Pi</h4>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>scp -r folder rpi:/home/pi
+</code></pre></div>
+<br>
+Feel free to get in touch if you have any questions.<div>
+<a class="btn btn-primary btn-sm" id=getintouch_mini role=button onclick=MeMail()>Click to reveal contact details</a>
+<a class="btn btn-default" role=button href=https://www.linkedin.com/in/bergoscar>
+<img class=img-responsive width=24 src=https://oversizedhat.github.io/oscarberg.com-dev/img/icon_linkedin64.png alt=dude>
+</a>
+<script>registerContactElement("getintouch_mini")</script>
+</div>
+<i data-feather=calendar></i>
+<time datetime=2020-11-19><p class=small>Nov 19, 2020</p></time>
+<i data-feather=tag></i>
+<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/docker>docker</a>
+<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/rpi>RPi</a>
+</div>
+</div><div class=container>
+<p class="footer text-center">© Oscar Wendelin Berg, 2021</p>
+<p class="footer text-center"><small>If you are keen on building a page like this, the source code is <a href=https://github.com/oversizedhat/oscarberg.com>here</a>...</small></p>
+<p class="footer text-center"><small>Elegant wallpapers from <a href=https://patterncooler.com/>https://patterncooler.com</a></small></p>
+</div><div class="cookie-banner alert alert-info text-center mb-0" role=alert>
+🍪 This site is making use of some basic analytics cookies so I can hopefully learn something from of the metrics. By using the site you are totally fine with that.
 <button type=button class="btn btn-primary btn-sm ml-3" onclick=window.cookieBanner_accept()>
-Sure, thanks for letting me know</button></div></body></html>
+Sure, thanks for letting me know
+</button>
+</div>
+</body>
+</html>

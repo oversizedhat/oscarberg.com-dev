@@ -1,7 +1,29 @@
-<!doctype html><html lang=en><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-SKB7HW5GSZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());gtag('config',"G-SKB7HW5GSZ");</script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/css/bootstrap/bootstrap.min.css><link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/css/style.min.9e89ddfa67b920f47f45f298988f3462205e65a13968c648c8e274f386753e55.css><title>Static site generators part 1 - Jekyll | Oscar Wendelin Berg</title></head><script src=https://oversizedhat.github.io/oscarberg.com-dev/js/bundle.min.e85de3a6cdd15a1b227547815e7f1db96f9704bf77eb40374dfc804ee5a265fe.js></script><body><nav id=nav class="navbar sticky-top shadow p-3 mb-5 bg-white"><div class=container><a class="btn btn-outline-primary" href=https://oversizedhat.github.io/oscarberg.com-dev role=button>OWB</a>
-<a class=nav-link href=/oscarberg.com-dev/blog/><i data-feather=blog></i>Blog</a></div></nav><div id=content><div class=container><a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/arduino/ role=button>arduino <sup>1</sup></a>
+<!doctype html><html lang=en>
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SKB7HW5GSZ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config',"G-SKB7HW5GSZ")</script>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/scss/bootstrap.4539090675735665eb7e776111dc37af99675653e599127fa28e6fa6cd654e38.css>
+<link rel=stylesheet href=https://oversizedhat.github.io/oscarberg.com-dev/css/style.min.a4bb077baea09eb61a956e66168a349941afc18fbcc30cb5838e0da406b6b0ed.css>
+<title>Static site generators part 1 - Jekyll | Oscar Wendelin Berg</title>
+</head>
+<script src=https://oversizedhat.github.io/oscarberg.com-dev/js/bundle.min.04f7223e7b856970fb4764b827b283c3764176e76515c259612bd506daf90821.js></script>
+<body>
+<nav id=nav class="navbar sticky-top shadow p-3 mb-5 bg-white">
+<div class=container>
+<a class="btn btn-outline-primary" href=https://oversizedhat.github.io/oscarberg.com-dev role=button>OWB</a>
+<a class=nav-link href=/oscarberg.com-dev/blog/>
+<i data-feather=blog></i>
+Blog
+</a>
+</div>
+</nav>
+<div id=content>
+<div class="container text-break">
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/arduino/ role=button>arduino <sup>1</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/docker/ role=button>docker <sup>2</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/editor-script/ role=button>editor-script <sup>1</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/htmlhint/ role=button>htmlhint <sup>1</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/hugo/ role=button>hugo <sup>2</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/jekyll/ role=button>jekyll <sup>1</sup></a>
@@ -10,18 +32,49 @@ gtag('js',new Date());gtag('config',"G-SKB7HW5GSZ");</script><meta charset=utf-8
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/rpi/ role=button>rpi <sup>1</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/semantic-release/ role=button>semantic-release <sup>1</sup></a>
 <a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/semver/ role=button>semver <sup>1</sup></a>
-<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/static-site-generator/ role=button>static-site-generator <sup>3</sup></a><hr><h4>Static site generators part 1 - Jekyll</h4><time datetime=2020-11-09><p class=small>Nov 9, 2020</p></time><p>Recently I did a low-tech hamstermonitoring setup with Arduino and Grafana. I decided the end result was fun enough to share, and did a blog post/webpage of it:
-<a href=https://oversizedhat.github.io/hamstermonitor>https://oversizedhat.github.io/hamstermonitor</a></p><p>Likely I spent as much time on the webpage as I did on the project itself so I thought why not go all the way and also write about the experience using Jekyll, which was my first time testing out a static site generator. One out the gazillion to choose from (<a href=https://jamstack.org/generators>https://jamstack.org/generators</a>).</p><p>I choose Jekyll purely based on the fact that it seemed dead simple with GitHub pages, which felt like a good idea as the project was in Github and my requirements where minimal, and something like this:</p><ul><li>Easy to work with</li><li>Responsible UI out of the box</li><li>Site needs to be okeyish looking without me having to put effort on it (theme)</li><li>Cheap or free</li></ul><h4 id=the-process>The process</h4><p>Jeykll was indeed easy to setup and work with, especially considering my limited set of &ldquo;requirements&rdquo;. If you are familiar with readme markdown commonly used for repository README.md files you can make a basic site simlar to how you make a word document. This site looks like it gives a good overview of markdown syntax: <a href=https://www.markdownguide.org/basic-syntax>https://www.markdownguide.org/basic-syntax</a> (and btw it seems that site itself is built using Jekyll).</p><p>Besides this you need some basic familiarity with version control systems, git specifically. At least if you want to use GitHub Pages for hosting.</p><h5 id=there-are-tons-of-guides-out-there-so-i-will-spare-you-another>There are tons of guides out there so I will spare you another&mldr;</h5><p>This looks like a good guide for setting it up:
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/static-site-generator/ role=button>static-site-generator <sup>3</sup></a>
+<a class="btn btn-outline-primary my-1" href=/oscarberg.com-dev/tags/unity/ role=button>unity <sup>1</sup></a>
+<hr>
+<h4>Static site generators part 1 - Jekyll</h4>
+<time datetime=2020-11-09><p class=small>Nov 9, 2020</p></time>
+<p>Recently I did a low-tech hamstermonitoring setup with Arduino and Grafana. I decided the end result was fun enough to share, and did a blog post/webpage of it:
+<a href=https://oversizedhat.github.io/hamstermonitor>https://oversizedhat.github.io/hamstermonitor</a></p>
+<p>Likely I spent as much time on the webpage as I did on the project itself so I thought why not go all the way and also write about the experience using Jekyll, which was my first time testing out a static site generator. One out the gazillion to choose from (<a href=https://jamstack.org/generators>https://jamstack.org/generators</a>).</p>
+<p>I choose Jekyll purely based on the fact that it seemed dead simple with GitHub pages, which felt like a good idea as the project was in Github and my requirements where minimal, and something like this:</p>
+<ul>
+<li>Easy to work with</li>
+<li>Responsible UI out of the box</li>
+<li>Site needs to be okeyish looking without me having to put effort on it (theme)</li>
+<li>Cheap or free</li>
+</ul>
+<h4 id=the-process>The process</h4>
+<p>Jeykll was indeed easy to setup and work with, especially considering my limited set of &ldquo;requirements&rdquo;. If you are familiar with readme markdown commonly used for repository README.md files you can make a basic site simlar to how you make a word document. This site looks like it gives a good overview of markdown syntax: <a href=https://www.markdownguide.org/basic-syntax>https://www.markdownguide.org/basic-syntax</a> (and btw it seems that site itself is built using Jekyll).</p>
+<p>Besides this you need some basic familiarity with version control systems, git specifically. At least if you want to use GitHub Pages for hosting.</p>
+<h5 id=there-are-tons-of-guides-out-there-so-i-will-spare-you-another>There are tons of guides out there so I will spare you another&mldr;</h5>
+<p>This looks like a good guide for setting it up:
 <a href=https://guides.github.com/features/pages/>https://guides.github.com/features/pages/</a>
-and this looks like good knowledge base from taking it further than I did: <a href=https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/about-github-pages-and-jekyll>https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/about-github-pages-and-jekyll</a></p><h5 id=here-are-however-some-of-my-own-reflectionsadditions-to-the-guides>Here are however some of my own reflections/additions to the guides</h5><ul><li>You will need to find a good way to work with it locally and doing so requires Ruby and Jekyll in your dev environment. The usual guides will show you how to install it on any system but if you are not a Ruby developer (or dislike polluting your environment) you might as well run Jekyll in a docker container. I found this neat Jekyll docker wrapper by Brett Fisher and made slight modification to it adding a &ldquo;&ndash;watch&rdquo; (flag <a href=https://github.com/oversizedhat/jekyll-serve>https://github.com/oversizedhat/jekyll-serve</a>) to get live reload in the browser when you edit your files.</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ docker-compose up 👍
-</code></pre></div><hr><p>To keep it real simple stick to one of the GitHub supported themes: <a href=https://pages.github.com/themes/>https://pages.github.com/themes/</a></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=color:#75715e># in _config.yml</span>
+and this looks like good knowledge base from taking it further than I did: <a href=https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/about-github-pages-and-jekyll>https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/about-github-pages-and-jekyll</a></p>
+<h5 id=here-are-however-some-of-my-own-reflectionsadditions-to-the-guides>Here are however some of my own reflections/additions to the guides</h5>
+<ul>
+<li>You will need to find a good way to work with it locally and doing so requires Ruby and Jekyll in your dev environment. The usual guides will show you how to install it on any system but if you are not a Ruby developer (or dislike polluting your environment) you might as well run Jekyll in a docker container. I found this neat Jekyll docker wrapper by Brett Fisher and made slight modification to it adding a &ldquo;&ndash;watch&rdquo; (flag <a href=https://github.com/oversizedhat/jekyll-serve>https://github.com/oversizedhat/jekyll-serve</a>) to get live reload in the browser when you edit your files.</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ docker-compose up 👍
+</code></pre></div><hr>
+<p>To keep it real simple stick to one of the GitHub supported themes: <a href=https://pages.github.com/themes/>https://pages.github.com/themes/</a></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=color:#75715e># in _config.yml</span>
 <span style=color:#f92672>theme</span>: <span style=color:#ae81ff>jekyll-theme-minimal</span>
-</code></pre></div><hr><p>Add the emoji plugin to make :thumbs_up: = 👍</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=color:#75715e># in _config.yml</span>
+</code></pre></div><hr>
+<p>Add the emoji plugin to make :thumbs_up: = 👍</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=color:#75715e># in _config.yml</span>
 <span style=color:#f92672>plugins</span>:
   - <span style=color:#ae81ff>jemoji</span>
-</code></pre></div><hr><p>Hook up your to your Google Analytics account</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=color:#75715e># in _config.yml</span>
+</code></pre></div><hr>
+<p>Hook up your to your Google Analytics account</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=color:#75715e># in _config.yml</span>
 <span style=color:#f92672>google_analytics</span>: <span style=color:#e6db74>&#34;UA-XXXXXXXXXX&#34;</span>
-</code></pre></div><hr><p>Videos, for example, are&rsquo;nt covered out of the box so you need to embed some html along with your markdown, and the same concept applies for anything custom that you cannot achieve with the markdown alone.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!-- _includes_/video_embed.html--&gt;</span>
+</code></pre></div><hr>
+<p>Videos, for example, are&rsquo;nt covered out of the box so you need to embed some html along with your markdown, and the same concept applies for anything custom that you cannot achieve with the markdown alone.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=color:#75715e>&lt;!-- _includes_/video_embed.html--&gt;</span>
 &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width:100%&#34;</span>&gt;
 &lt;<span style=color:#f92672>video</span> <span style=color:#a6e22e>controls</span> <span style=color:#a6e22e>style</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;width:100%&#34;</span>&gt;
     &lt;<span style=color:#f92672>source</span> <span style=color:#a6e22e>src</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;assets/my_dang_cool_vid.mp4&#34;</span> <span style=color:#a6e22e>type</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;video/mp4&#34;</span>&gt;
@@ -29,12 +82,42 @@ and this looks like good knowledge base from taking it further than I did: <a hr
        a &lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;assets/my_dang_cool_vid.mp4&#34;</span>&gt;link to the video&lt;/<span style=color:#f92672>a</span>&gt; instead.&lt;/<span style=color:#f92672>p</span>&gt;
 &lt;/<span style=color:#f92672>video</span>&gt;
 &lt;/<span style=color:#f92672>div</span>&gt;
-</code></pre></div><p>And include it it in the markdown:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=color:#75715e>## Check out my dang **cool** vid:
+</code></pre></div><p>And include it it in the markdown:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=color:#75715e>## Check out my dang **cool** vid:
 </span><span style=color:#75715e></span>{% include video_embed.html %}
-</code></pre></div><hr><h4 id=takeaways>Takeaways</h4><ul><li>This was the result: <a href=https://oversizedhat.github.io/hamstermonitor/>https://oversizedhat.github.io/hamstermonitor/</a></li><li>It was indeed an easy setup. No time wasted on boilerplates or thinking about workflows and frameworks.</li><li>The theme concept is indeed nice and allowed me to effectively postpone the decision to select a theme until the last minute basically. I really like that, as it allowed me to decide on a theme/style when I was finished with the content, and not the other way around.</li><li>It adapts nicely according to the screen size/device.</li><li>But would I take it further with Jekyll? I dont think so as it would mean investing time in Ruby and it&rsquo;s eco systom of RybyGems. I have far too little experience to begin downtalking Ruby, but just looking at programming language trends alone I doubt it&rsquo;s the right horse to bet on.</li></ul><br>Feel free to get in touch if you have any questions.<div><a class="btn btn-primary btn-sm" id=getintouch_mini role=button onclick=MeMail()>Click to reveal contact details</a>
-<a class="btn btn-default" role=button href=https://www.linkedin.com/in/bergoscar><img class=img-responsive width=24 src=https://oversizedhat.github.io/oscarberg.com-dev/img/icon_linkedin64.png alt=dude></a>
-<script>registerContactElement("getintouch_mini");</script></div><i data-feather=calendar></i><time datetime=2020-11-09><p class=small>Nov 9, 2020</p></time><i data-feather=tag></i><a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/jekyll>jekyll</a>
+</code></pre></div><hr>
+<h4 id=takeaways>Takeaways</h4>
+<ul>
+<li>This was the result: <a href=https://oversizedhat.github.io/hamstermonitor/>https://oversizedhat.github.io/hamstermonitor/</a></li>
+<li>It was indeed an easy setup. No time wasted on boilerplates or thinking about workflows and frameworks.</li>
+<li>The theme concept is indeed nice and allowed me to effectively postpone the decision to select a theme until the last minute basically. I really like that, as it allowed me to decide on a theme/style when I was finished with the content, and not the other way around.</li>
+<li>It adapts nicely according to the screen size/device.</li>
+<li>But would I take it further with Jekyll? I dont think so as it would mean investing time in Ruby and it&rsquo;s eco systom of RybyGems. I have far too little experience to begin downtalking Ruby, but just looking at programming language trends alone I doubt it&rsquo;s the right horse to bet on.</li>
+</ul>
+<br>
+Feel free to get in touch if you have any questions.<div>
+<a class="btn btn-primary btn-sm" id=getintouch_mini role=button onclick=MeMail()>Click to reveal contact details</a>
+<a class="btn btn-default" role=button href=https://www.linkedin.com/in/bergoscar>
+<img class=img-responsive width=24 src=https://oversizedhat.github.io/oscarberg.com-dev/img/icon_linkedin64.png alt=dude>
+</a>
+<script>registerContactElement("getintouch_mini")</script>
+</div>
+<i data-feather=calendar></i>
+<time datetime=2020-11-09><p class=small>Nov 9, 2020</p></time>
+<i data-feather=tag></i>
+<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/jekyll>jekyll</a>
 <a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/static-site-generator>static site generator</a>
-<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/arduino>arduino</a></div></div><div class=container><p class="footer text-center">© Oscar Wendelin Berg, 2021</p><p class="footer text-center"><small>If you are keen on building a page like this, the source code is <a href=https://github.com/oversizedhat/oscarberg.com>here</a>...</small></p><p class="footer text-center"><small>Elegant wallpapers from <a href=https://patterncooler.com/>https://patterncooler.com</a></small></p></div><div class="cookie-banner alert alert-info text-center mb-0" role=alert>🍪 This site is making use of some basic analytics cookies so I can hopefully learn something from of the metrics. By using the site you are totally fine with that.
+<a class="btn btn-sm btn-outline-dark tag-btn" href=https://oversizedhat.github.io/oscarberg.com-dev/tags/arduino>arduino</a>
+</div>
+</div><div class=container>
+<p class="footer text-center">© Oscar Wendelin Berg, 2021</p>
+<p class="footer text-center"><small>If you are keen on building a page like this, the source code is <a href=https://github.com/oversizedhat/oscarberg.com>here</a>...</small></p>
+<p class="footer text-center"><small>Elegant wallpapers from <a href=https://patterncooler.com/>https://patterncooler.com</a></small></p>
+</div><div class="cookie-banner alert alert-info text-center mb-0" role=alert>
+🍪 This site is making use of some basic analytics cookies so I can hopefully learn something from of the metrics. By using the site you are totally fine with that.
 <button type=button class="btn btn-primary btn-sm ml-3" onclick=window.cookieBanner_accept()>
-Sure, thanks for letting me know</button></div></body></html>
+Sure, thanks for letting me know
+</button>
+</div>
+</body>
+</html>
